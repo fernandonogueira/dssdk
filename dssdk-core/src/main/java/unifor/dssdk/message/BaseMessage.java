@@ -1,4 +1,4 @@
-package unifor.message;
+package unifor.dssdk.message;
 
 import java.util.List;
 
@@ -23,10 +23,14 @@ public abstract class BaseMessage {
     public abstract List<BaseParam> getParams();
 
     /**
-     * Prepare the message to be transmitted
+     * Prepare the unifor.dssdk.message to be transmitted
      *
      * @return
      */
     public abstract String string();
 
+    @Override
+    public String toString() {
+        return "BaseMessage{}";
+    }
 }

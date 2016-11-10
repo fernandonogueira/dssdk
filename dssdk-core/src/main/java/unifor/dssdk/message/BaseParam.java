@@ -1,4 +1,4 @@
-package unifor.message;
+package unifor.dssdk.message;
 
 /**
  * @author Fernando Nogueira

@@ -1,6 +1,6 @@
-package unifor.callback;
+package unifor.dssdk.callback;
 
-import unifor.message.BaseMessage;
+import unifor.dssdk.message.BaseMessage;
 
 /**
  * @author Fernando Nogueira

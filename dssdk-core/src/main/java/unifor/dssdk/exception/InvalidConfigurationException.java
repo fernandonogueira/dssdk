@@ -1,4 +1,4 @@
-package unifor.exception;
+package unifor.dssdk.exception;
 
 /**
  * @author Fernando Nogueira
