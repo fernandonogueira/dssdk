@@ -5,31 +5,25 @@ import unifor.dssdk.callback.MessageCallback;
 import unifor.dssdk.core.DSSdk;
 import unifor.dssdk.exception.InvalidConfigurationException;
 import unifor.dssdk.message.BaseMessage;
-import unifor.dssdk.message.DefaultMessage;
 
-import java.io.IOException;
+public class SampleUDPServer {
 
-public class SampleTCPClient {
-
-    public static void main(String[] args) throws InvalidConfigurationException, IOException {
+    public static void main(String[] args) throws InvalidConfigurationException {
 
         DSSdk sdk = new SdkBuilder()
-                .defaultTargetAddress("localhost:5654")
+                .defaultTargetAddress("localhost:")
                 .callback(new MessageCallback() {
                     @Override
                     public <T extends BaseMessage> void messageReceived(T message) {
                         System.out.println("Message received!");
                         System.out.println(message);
                     }
-                }).build();
+                })
+                .udp()
+                .build();
 
+        sdk.listen();
 
-        DefaultMessage msg = new DefaultMessage();
-
-        msg.setMethod("sugerirLetra");
-
-        System.out.println("Sending message... :" + msg.string());
-
-        sdk.send(msg);
     }
+
 }

@@ -1,4 +1,4 @@
-package unifor.dssdk.core;
+package unifor.dssdk.core.tcp;
 
 import org.apache.commons.io.IOUtils;
 import unifor.dssdk.callback.MessageCallback;
@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-public class MessageHandler implements Runnable {
+public class TCPMessageHandler implements Runnable {
 
     private final MessageCallback callback;
     private final Socket socket;
     private final DefaultMessageParser parser;
 
-    public MessageHandler(Socket socket, DefaultMessageParser parser, MessageCallback callback) {
+    public TCPMessageHandler(Socket socket, DefaultMessageParser parser, MessageCallback callback) {
         this.socket = socket;
         this.callback = callback;
         this.parser = parser;

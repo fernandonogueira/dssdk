@@ -5,3 +5,4 @@ target/
 /dssdk-core/target/
 /sample-tcp-client/target/
 /sample-tcp-server/target/
+/out/

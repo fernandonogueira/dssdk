@@ -8,26 +8,30 @@ import java.util.List;
  */
 public class DefaultMessage extends BaseMessage {
 
+    private String from;
+
+    private String to;
+
     private String method;
 
     private List<BaseParam> params;
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public void setParams(List<BaseParam> params) {
-        this.params = params;
-    }
 
     @Override
     public String getMethod() {
         return method;
     }
 
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     @Override
     public List<BaseParam> getParams() {
         return params;
+    }
+
+    public void setParams(List<BaseParam> params) {
+        this.params = params;
     }
 
     @Override
@@ -49,6 +53,16 @@ public class DefaultMessage extends BaseMessage {
         }
 
         return str;
+    }
+
+    @Override
+    public String getFrom() {
+        return from;
+    }
+
+    @Override
+    public String getTo() {
+        return to;
     }
 
     @Override

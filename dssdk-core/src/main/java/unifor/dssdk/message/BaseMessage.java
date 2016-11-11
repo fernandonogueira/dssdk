@@ -22,15 +22,39 @@ public abstract class BaseMessage {
      */
     public abstract List<BaseParam> getParams();
 
+
+    public abstract String getFrom();
+
+    public abstract String getTo();
+
+    @Override
+    public String toString() {
+        return "BaseMessage{}";
+    }
+
     /**
      * Prepare the unifor.dssdk.message to be transmitted
      *
      * @return
      */
-    public abstract String string();
+    public String string() {
+        List<BaseParam> params = getParams();
 
-    @Override
-    public String toString() {
-        return "BaseMessage{}";
+        String str = getMethod() + "|";
+        if (params != null && !params.isEmpty()) {
+
+            boolean firstParam = true;
+
+            for (BaseParam param : params) {
+                if (!firstParam) {
+                    str += "|";
+                }
+                str += param.string();
+//                str += param.getName() + ":" + param.getValue();
+                firstParam = false;
+            }
+        }
+
+        return str;
     }
 }

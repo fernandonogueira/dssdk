@@ -25,4 +25,19 @@ public class BaseParam {
         this.value = value;
     }
 
+    /**
+     * Parses the param to String
+     *
+     * @return
+     */
+    public String string() {
+        if (name != null) {
+            String result = name;
+            if (value != null) {
+                result += ":" + value;
+            }
+        }
+        return "";
+    }
+
 }

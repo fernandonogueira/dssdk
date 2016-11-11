@@ -1,10 +1,10 @@
 package unifor.dssdk.builder;
 
+import unifor.dssdk.callback.MessageCallback;
 import unifor.dssdk.core.BaseSdk;
 import unifor.dssdk.core.DSSdk;
 import unifor.dssdk.core.TCPSdk;
 import unifor.dssdk.core.UDPSdk;
-import unifor.dssdk.callback.MessageCallback;
 import unifor.dssdk.exception.InvalidConfigurationException;
 
 public class SdkBuilder {
@@ -13,8 +13,12 @@ public class SdkBuilder {
     private String defaultTargetAddr;
     private MessageCallback callback;
 
-    public void udp() {
+    public SdkBuilder() {
+    }
+
+    public SdkBuilder udp() {
         this.udp = true;
+        return this;
     }
 
     public SdkBuilder callback(MessageCallback messageCallback) {

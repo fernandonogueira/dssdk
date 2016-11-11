@@ -15,13 +15,13 @@ public abstract class BaseSdk implements DSSdk {
     private int localPort = 5654;
 
     @Override
-    public void setDefaultTargetAddr(String defaultTargetAddr) {
-        this.defaultTargetAddr = defaultTargetAddr;
+    public String getDefaultTargetAddr() {
+        return defaultTargetAddr;
     }
 
     @Override
-    public String getDefaultTargetAddr() {
-        return defaultTargetAddr;
+    public void setDefaultTargetAddr(String defaultTargetAddr) {
+        this.defaultTargetAddr = defaultTargetAddr;
     }
 
     @Override

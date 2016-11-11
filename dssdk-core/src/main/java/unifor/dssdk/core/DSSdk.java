@@ -14,17 +14,9 @@ public interface DSSdk {
      */
     <T extends BaseMessage> void send(T send) throws IOException;
 
-    /**
-     * Receive a unifor.dssdk.message
-     *
-     * @param <T> Message type
-     * @return Message received
-     */
-    void receive();
+    String getDefaultTargetAddr();
 
     void setDefaultTargetAddr(String defaultTargetAddr);
-
-    String getDefaultTargetAddr();
 
     MessageCallback getMessageReceiverCallback();
 

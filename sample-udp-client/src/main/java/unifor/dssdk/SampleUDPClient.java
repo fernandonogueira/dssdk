@@ -5,11 +5,15 @@ import unifor.dssdk.callback.MessageCallback;
 import unifor.dssdk.core.DSSdk;
 import unifor.dssdk.exception.InvalidConfigurationException;
 import unifor.dssdk.message.BaseMessage;
+import unifor.dssdk.message.BaseParam;
 import unifor.dssdk.message.DefaultMessage;
+import unifor.dssdk.message.DefaultParam;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SampleTCPClient {
+public class SampleUDPClient {
 
     public static void main(String[] args) throws InvalidConfigurationException, IOException {
 
@@ -21,15 +25,31 @@ public class SampleTCPClient {
                         System.out.println("Message received!");
                         System.out.println(message);
                     }
-                }).build();
+                })
+                .udp()
+                .build();
 
 
         DefaultMessage msg = new DefaultMessage();
 
         msg.setMethod("sugerirLetra");
 
-        System.out.println("Sending message... :" + msg.string());
+        List<BaseParam> paramsToSend = new ArrayList<>();
 
+        DefaultParam param1 = new DefaultParam();
+        param1.setName("param1");
+        param1.setValue("value1");
+        paramsToSend.add(param1);
+
+        DefaultParam param2 = new DefaultParam();
+        param2.setName("param1");
+        param2.setValue("value1");
+
+        paramsToSend.add(param2);
+
+        msg.setParams(paramsToSend);
+
+        System.out.println("Sending message... :" + msg.string());
         sdk.send(msg);
     }
 }

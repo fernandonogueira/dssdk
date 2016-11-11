@@ -3,16 +3,14 @@ package unifor.dssdk.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import unifor.dssdk.callback.MessageCallback;
+import unifor.dssdk.core.tcp.TCPMessageHandler;
 import unifor.dssdk.message.BaseMessage;
-import unifor.dssdk.message.BaseParam;
 import unifor.dssdk.message.parser.DefaultMessageParser;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Fernando Nogueira
@@ -29,33 +27,11 @@ public class TCPSdk extends BaseSdk {
 
     public <T extends BaseMessage> void send(T send) throws IOException {
         Socket socket = new Socket();
-
         // TODO support address by message
         String defaultAddr = getDefaultTargetAddr();
         String[] split = defaultAddr.split(":");
         socket.connect(new InetSocketAddress(split[0], Integer.parseInt(split[1])));
         socket.getOutputStream().write(send.string().getBytes());
-    }
-
-    public void receive() {
-        // Receive unifor.dssdk.message...
-
-        // Parse
-
-        // Send to unifor.dssdk.callback
-        getMessageReceiverCallback().messageReceived(new BaseMessage() {
-            public String getMethod() {
-                return "method";
-            }
-
-            public List<BaseParam> getParams() {
-                return new ArrayList<BaseParam>();
-            }
-
-            public String string() {
-                return "teste";
-            }
-        });
     }
 
     public MessageCallback getMessageReceiverCallback() {
@@ -75,7 +51,7 @@ public class TCPSdk extends BaseSdk {
             LOGGER.info("Accepting new connections on port: {}...", getLocalPort());
             while (running) {
                 Socket socket = serverSocket.accept();
-                MessageHandler handler = new MessageHandler(socket, messageParser, messageCallback);
+                TCPMessageHandler handler = new TCPMessageHandler(socket, messageParser, messageCallback);
                 new Thread(handler).start();
             }
         } catch (IOException e) {
