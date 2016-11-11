@@ -8,6 +8,6 @@ import unifor.dssdk.message.BaseMessage;
  */
 public interface MessageCallback {
 
-    <T extends BaseMessage> void messageReceived(T message);
+    <T extends BaseMessage> void messageReceived(T message, ResponseHandler responseHandler);
 
 }

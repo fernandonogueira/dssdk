@@ -66,15 +66,19 @@ public class UDPSdk extends BaseSdk {
     public void listen() {
 
         try {
+            LOGGER.info("Initializing SDK Server using UDP protocol on port: {}", getLocalPort());
             DatagramSocket serverSocket = new DatagramSocket(getLocalPort());
-            byte[] receiveData = new byte[1024];
-            byte[] sendData = new byte[1024];
+            LOGGER.info("Listening...");
+
             while (true) {
+                byte[] receiveData = new byte[1024];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(receivePacket);
 
-                byte[] receivedData = receivePacket.getData();
-                UDPMessageHandler handler = new UDPMessageHandler(receivedData, messageParser, callback);
+                UDPMessageHandler handler = new UDPMessageHandler(serverSocket,
+                        receivePacket,
+                        messageParser,
+                        callback);
                 new Thread(handler).start();
             }
 

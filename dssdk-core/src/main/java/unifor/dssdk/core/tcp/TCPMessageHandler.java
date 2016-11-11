@@ -1,6 +1,7 @@
 package unifor.dssdk.core.tcp;
 
 import org.apache.commons.io.IOUtils;
+import unifor.dssdk.callback.DefaultTCPResponseHandler;
 import unifor.dssdk.callback.MessageCallback;
 import unifor.dssdk.message.DefaultMessage;
 import unifor.dssdk.message.parser.DefaultMessageParser;
@@ -32,7 +33,8 @@ public class TCPMessageHandler implements Runnable {
             byte[] bytes = IOUtils.toByteArray(inputStream);
             String str = new String(bytes);
             DefaultMessage message = parser.parseMessage(str);
-            callback.messageReceived(message);
+            DefaultTCPResponseHandler responseHandler = new DefaultTCPResponseHandler(socket);
+            callback.messageReceived(message, responseHandler);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,17 +1,26 @@
 package unifor.dssdk.core.udp;
 
+import unifor.dssdk.callback.DefaultUDPResponseHandler;
 import unifor.dssdk.callback.MessageCallback;
 import unifor.dssdk.message.DefaultMessage;
 import unifor.dssdk.message.parser.DefaultMessageParser;
 
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+
 public class UDPMessageHandler implements Runnable {
 
     private final MessageCallback callback;
-    private final byte[] bytes;
     private final DefaultMessageParser parser;
+    private final DatagramSocket serverSocket;
+    private final DatagramPacket packet;
 
-    public UDPMessageHandler(byte[] bytes, DefaultMessageParser parser, MessageCallback callback) {
-        this.bytes = bytes;
+    public UDPMessageHandler(DatagramSocket serverSocket,
+                             DatagramPacket receivePacket,
+                             DefaultMessageParser parser,
+                             MessageCallback callback) {
+        this.serverSocket = serverSocket;
+        this.packet = receivePacket;
         this.callback = callback;
         this.parser = parser;
     }
@@ -22,9 +31,11 @@ public class UDPMessageHandler implements Runnable {
     }
 
     private void handleMessage() {
-        String str = new String(bytes);
+        byte[] bytes = packet.getData();
+        String str = new String(bytes, 0, packet.getLength());
         DefaultMessage message = parser.parseMessage(str);
-        callback.messageReceived(message);
+        DefaultUDPResponseHandler respHandler = new DefaultUDPResponseHandler(serverSocket, packet);
+        callback.messageReceived(message, respHandler);
     }
 
 }

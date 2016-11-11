@@ -1,6 +1,7 @@
 package unifor.dssdk;
 
 import unifor.dssdk.builder.SdkBuilder;
+import unifor.dssdk.callback.ResponseHandler;
 import unifor.dssdk.callback.MessageCallback;
 import unifor.dssdk.core.DSSdk;
 import unifor.dssdk.exception.InvalidConfigurationException;
@@ -21,7 +22,10 @@ public class SampleUDPClient {
                 .defaultTargetAddress("localhost:5654")
                 .callback(new MessageCallback() {
                     @Override
-                    public <T extends BaseMessage> void messageReceived(T message) {
+                    public <T extends BaseMessage> void messageReceived(T message,
+                                                                        ResponseHandler responseHandler) {
+
+                        responseHandler.done();
                         System.out.println("Message received!");
                         System.out.println(message);
                     }
@@ -42,8 +46,8 @@ public class SampleUDPClient {
         paramsToSend.add(param1);
 
         DefaultParam param2 = new DefaultParam();
-        param2.setName("param1");
-        param2.setValue("value1");
+        param2.setName("param2");
+        param2.setValue("value2");
 
         paramsToSend.add(param2);
 

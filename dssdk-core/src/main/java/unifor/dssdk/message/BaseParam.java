@@ -40,4 +40,12 @@ public class BaseParam {
         return "";
     }
 
+
+    @Override
+    public String toString() {
+        return "BaseParam{" +
+                "name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }
