@@ -6,3 +6,5 @@ target/
 /sample-tcp-client/target/
 /sample-tcp-server/target/
 /out/
+/sample-udp-client/target/
+/sample-udp-server/target/
