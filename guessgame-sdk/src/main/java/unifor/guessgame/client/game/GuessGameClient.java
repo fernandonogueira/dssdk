@@ -22,7 +22,6 @@ public class GuessGameClient {
     }
 
     public void suggestWord(String word) {
-
         Message msg = new Message();
         msg.setMethod("suggestWord");
 
@@ -36,9 +35,16 @@ public class GuessGameClient {
 
     public static void main(String[] args) {
         GuessGameClient client = new GuessGameClient();
-        for (int i = 0; i < 1000; i++) {
-            client.suggestWord("azeitona");
-        }
+        client.joinRoom();
+        client.suggestWord("azeitona");
+        client.suggestWord("andre_baitola");
+        client.suggestWord("sei la");
+    }
+
+    private void joinRoom() {
+        Message msg = new Message();
+        msg.setMethod("joinRoom");
+        sdk.sendMessage(msg);
     }
 
 }

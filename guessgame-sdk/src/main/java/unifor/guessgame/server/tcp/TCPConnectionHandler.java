@@ -3,6 +3,7 @@ package unifor.guessgame.server.tcp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import unifor.guessgame.message.Message;
+import unifor.guessgame.message.ServerMessage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,9 +45,28 @@ public class TCPConnectionHandler implements Runnable {
 
                 addToBuffer(receivedStr);
 
+                List<ServerMessage> serverMsgs = new ArrayList<>();;
                 if (buffer.contains(Message.END_OF_MSG)) {
                     List<Message> msgs = resolveMessages();
-                    LOGGER.info("Parsed msgs: [{}]", msgs);
+
+
+                    for (Message msg : msgs) {
+                        ServerMessage serverMsg = ServerMessage.fromMessage(msg);
+                        serverMsg.setClientId(clientId);
+                        serverMsgs.add(serverMsg);
+                    }
+
+
+                    LOGGER.debug("Parsed msgs: [{}]", msgs);
+                }
+
+                if (!serverMsgs.isEmpty()) {
+                    for (ServerMessage serverMsg : serverMsgs) {
+                        Message response = server.handleCommand(serverMsg);
+                        if (response != null) {
+                            // Server wants to respond to client... use output stream :)
+                        }
+                    }
                 }
 
             }
@@ -67,14 +87,13 @@ public class TCPConnectionHandler implements Runnable {
             String[] msgs = buffer.split(Message.END_OF_MSG);
             for (String msg : msgs) {
                 LOGGER.info("Message: {}", msg);
-
                 list.add(parseMsg(msg));
             }
         }
 
         int lastMsgIndex = buffer.lastIndexOf(Message.END_OF_MSG);
         buffer = buffer.substring(lastMsgIndex + Message.END_OF_MSG.length());
-        LOGGER.info("Buffer status: {}", buffer);
+        LOGGER.debug("Buffer status: {}", buffer);
 
 
         return list;
