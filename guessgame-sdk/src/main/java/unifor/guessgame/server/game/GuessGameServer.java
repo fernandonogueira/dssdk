@@ -71,6 +71,8 @@ public class GuessGameServer implements ServerCommandHandler {
             }
         }
         LOGGER.info("Player {} joined the game.", command.getClientId());
+
+        // TODO reply message containing current word
     }
 
     public void suggestWord(ServerMessage command) {
