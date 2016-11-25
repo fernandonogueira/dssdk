@@ -14,10 +14,13 @@ public class GuessGameDatabase {
 
     static {
 
-        map.put("Pergunta 1", "azeitona");
-        map.put("Pergunta 2", "pirulito");
-        map.put("Pergunta 3", "seinao");
-        map.put("Pergunta 4", "pois");
+        map.put("Apresentadora de TV famosa entre crianças", "xuxa");
+        map.put("Patriarca da família Simpson", "homer");
+        map.put("Editora de quadrinhos responsável pelos X-Men", "marvel");
+        map.put("Planta cujo fruto é a uva", "videira");
+        map.put("Rede social famosa", "facebook");
+        map.put("Alimento que consiste em um disco de massa", "pizza");
+        map.put("Mamífero marsupial nativo da Austrália", "canguru");
 
     }
 
