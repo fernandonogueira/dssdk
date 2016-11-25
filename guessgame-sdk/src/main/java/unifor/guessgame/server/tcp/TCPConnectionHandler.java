@@ -49,13 +49,11 @@ public class TCPConnectionHandler implements Runnable {
                 if (buffer.contains(Message.END_OF_MSG)) {
                     List<Message> msgs = resolveMessages();
 
-
                     for (Message msg : msgs) {
                         ServerMessage serverMsg = ServerMessage.fromMessage(msg);
                         serverMsg.setClientId(clientId);
                         serverMsgs.add(serverMsg);
                     }
-
 
                     LOGGER.debug("Parsed msgs: [{}]", msgs);
                 }
@@ -64,6 +62,8 @@ public class TCPConnectionHandler implements Runnable {
                     for (ServerMessage serverMsg : serverMsgs) {
                         Message response = server.handleCommand(serverMsg);
                         if (response != null) {
+                            os.write(response.prepareToTransmit().getBytes());
+                            os.flush();
                             // Server wants to respond to client... use output stream :)
                         }
                     }

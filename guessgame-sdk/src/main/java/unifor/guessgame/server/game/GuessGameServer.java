@@ -51,17 +51,15 @@ public class GuessGameServer implements ServerCommandHandler {
 
         switch (command.getMethod()) {
             case "suggestWord":
-                suggestWord(command);
-                break;
+                return suggestWord(command);
             case "joinRoom":
-                joinRoom(command);
-                break;
+                return joinRoom(command);
         }
 
         return null;
     }
 
-    public void joinRoom(ServerMessage command) {
+    public Message joinRoom(ServerMessage command) {
 
         synchronized (currentQuestionLock) {
             if (currentQuestion == null) {
@@ -72,13 +70,19 @@ public class GuessGameServer implements ServerCommandHandler {
         }
         LOGGER.info("Player {} joined the game.", command.getClientId());
 
-        // TODO reply message containing current word
+        Message msg = new Message();
+        msg.setMethod("OK");
+        return msg;
     }
 
-    public void suggestWord(ServerMessage command) {
+    public Message suggestWord(ServerMessage command) {
         LOGGER.info("Player [{}] suggested word command received: [{}]",
                 command.getClientId(),
                 command);
+
+        Message msg = new Message();
+        msg.setMethod("OK");
+        return msg;
         // handle suggest word
     }
 
