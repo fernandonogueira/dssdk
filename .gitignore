@@ -8,3 +8,4 @@ target/
 /out/
 /sample-udp-client/target/
 /sample-udp-server/target/
+.project
