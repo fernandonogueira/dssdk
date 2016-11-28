@@ -1,0 +1,8 @@
+grant {
+    permission java.security.AllPermission;
+};
+
+grant codeBase "file:/Users/fernandonogueira/SourceTree_Repos/dssdk/RMIGuessGameServer" {
+    permission java.security.AllPermission;
+};
+
